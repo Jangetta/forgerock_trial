@@ -19,3 +19,19 @@ spec:
         image: jangetta/forgerock_stock:0.1
         ports:
         - containerPort: 8081
+        env:
+        - name: stonks
+          valueFrom:
+            configMapKeyRef:
+              name: stock.yaml
+              key: SYMBOL
+        - name: days
+          valueFrom:
+            configMapKeyRef:
+              name: stock.yaml
+              key: NDAYS
+        - name: secret_api
+          valueFrom:
+            secretKeyRef:
+              name: forgerock-secret
+              key: secret-token
