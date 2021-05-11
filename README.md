@@ -1,6 +1,6 @@
 # Forgerock SRE Coding Test
 
-##Docker Instructions
+## Docker Instructions
 To download this specific docker image, use this command below: 
 ```docker
 docker pull jangetta/forgerock_stock:0.1
@@ -28,5 +28,5 @@ My image_ID for this specific docker image is 8c72c7ac8104
 
 My Dockerhub Profile is located [here](https://hub.docker.com/u/jangetta). 
 
-##Kubernetes
+## Kubernetes
 
