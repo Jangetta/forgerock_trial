@@ -1,0 +1,15 @@
+<html>
+    <head>
+    <title>Stonks</title>
+	</head>
+	<body>
+		<form action="/average" method="post">
+		<p>Closing Prices for the last {{days}} days for {{sym}} <br> </p>
+		<ol>{% for item in list %}
+  			<li>{{item}}</li>
+  		{% endfor %}
+		</ol>
+		<p> The average closing price for {{sym}} is: {{avg_close}} </p>
+		
+    </body>
+</html>
