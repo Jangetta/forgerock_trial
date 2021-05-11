@@ -35,28 +35,43 @@ Instructions for a Vanilla install of Minikube
 kubectl create namespace forgerock
 ```
 
-2. With this namespace created, we can apply the manifest file, forgerock_deploy.yaml, to the namespace
+2. To build the configmap for this enviroment, run the command below, pointing to the file, stock.txt. This will create the configmap called stock.yaml in yaml format, the file will not appear in your directory but is stored in kubernetes
+```
+kubectl create configmap stock.yaml --from-file stock.txt -o yaml
+```
+
+3. To build the secret config for this enviroment, run the command below, pointing to the file that contains the base64 version of the api_key.txt
+```
+echo -n "your_api_key_here" | base64 > secret.yaml
+```
+
+4. Apply both to your kubernetes instance
+```
+kubectl apply -f secret.yaml
+kubectl apply -f stock.yaml
+```
+
+5. With this namespace created, we can apply the manifest file, forgerock_deploy.yaml, to the namespace
 ```Kube
 kubectl apply -f forgerock_deploy.yaml -n forgerock
 ```
 
-3. We can forward our port to see if our pod deployment was successful
+6. We can forward our port to see if our pod deployment was successful
 ```
 kubectl port-forward deployment/forgerock-deploy -n forgerock 8081:8081
 ```
 
-4. Navigate to localhost:8081 to see the flask application is successfully forwarding correctly
+7. Navigate to localhost:8081 to see the flask application is successfully forwarding correctly
 
-5. Run the forgerock_ingress.yaml with the command below to create a stable network for the pod, with the same namespace
+8. Run the forgerock_ingress.yaml with the command below to create a stable network for the pod, with the same namespace
 ```
 kubectl apply -f forgerock_ingress.yaml -n forgerock
 ```
 
-6. You can verify it is running if your output is similar to mine with the same command
+9. You can verify it is running if your output is similar to mine with the same command
 ```
 MBP-041150:kubernetes julie.brady$ kubectl get svc -w
 NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
 kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   64m
 ^CMBP-041150:kubernetes julie.brady$ 
 ```
-
