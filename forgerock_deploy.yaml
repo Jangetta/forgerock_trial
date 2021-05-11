@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: forgerock-deploy
+  labels:
+    app: forgerock_stock
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: forgerock
+  template:
+    metadata:
+      labels:
+        app: forgerock
+    spec:
+      containers:
+      - name: forgerock
+        image: jangetta/forgerock_stock:0.1
+        ports:
+        - containerPort: 8081
